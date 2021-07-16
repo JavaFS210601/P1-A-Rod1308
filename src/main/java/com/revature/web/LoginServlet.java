@@ -13,29 +13,42 @@ public class LoginServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		RequestDispatcher rd = null;  
+		PrintWriter out = res.getWriter(); 
+		
+		//Set the content type to html to display website
+		res.setContentType("text/html");
 		
 		//get the user inputs from the HTML form, and turn them into Java variables
-		String username = req.getParameter("userId"); 
-		String password = req.getParameter("password");
+		String username = req.getParameter("userName"); 
+		String password = req.getParameter("userPass");
 		
-		//setting up some objects to do a forward
-		RequestDispatcher rd = null;
-		PrintWriter pw = res.getWriter(); //create a PrintWriter object so that we can write things to our page
+
+		 
+		          
+		//Check form data
 		
-		//normally, checking the user credentials against a Database would be done in the "service layer".
-		//but for now, we're just going to hardcode a username and password to check the user login.
-		if(username.equals("User") && password.equals("Pass")) { 
-			rd = req.getRequestDispatcher("success"); //if the username/password are good, initialize our RequestDispatcher
-			//this "success" parameter is going to be appended to the end of our base URL - to go to SuccessServlet
-			//The SuccessServlet will be the servlet to forward to upon successful login
-			rd.forward(req, res); //we forward the request and response objects to another servlet 
+		if(username.equals("username") && password.equals("password")) { 
+			
+			//Uri Endpoint
+			rd = req.getRequestDispatcher("app");
+			//Forward a request to another resourse on the server
+			rd.forward(req, res); 
 		} else {
-			rd = req.getRequestDispatcher("index.html"); //if login fails, don't forward, resend the index.html
+			out.print("Sorry UserName or Password Error!");  
+			rd = req.getRequestDispatcher("/index.html"); //if login fails, don't forward, resend the index.html
 			rd.include(req, res); //"this is the request you sent me, this is the page I want to display as a result"
-			pw.print("<p style='color:red'>LOGIN FAILED!</p>"); 
-			//using PrintWriter.print() method to populate HTML in our index.html
+
 		}
 		
 		
+	}
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+		
+		PrintWriter pw = res.getWriter(); //this is how we write to our Response Object
+		
+		pw.print("<h1>Hello from your doGet method</h1>"); //use the PrintWriter to write some HTML
 	}
 }
