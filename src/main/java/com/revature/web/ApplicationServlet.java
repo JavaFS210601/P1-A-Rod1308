@@ -9,19 +9,44 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.revature.controllers.ErsReimbursmentController;
+import com.revature.controllers.ErsReimbursmentTypeController;
+
 public class ApplicationServlet extends HttpServlet {
-	
-	   public void doPost(HttpServletRequest req, HttpServletResponse res)  
-		        throws ServletException, IOException {  
+	 
+	   private ErsReimbursmentController ec = new ErsReimbursmentController();
+	   private ErsReimbursmentTypeController tc = new ErsReimbursmentTypeController();
+	   
+	   public void doPost(HttpServletRequest req, HttpServletResponse res)  throws ServletException, IOException {  
 		    RequestDispatcher rd = null; 
-		    res.setContentType("text/html");  
+		    res.setContentType("application/json");  
 		    PrintWriter out = res.getWriter();  
 		    
+		    
 		          
-		    String n=req.getParameter("userName");  
-		    out.print("Welcome "+n); 
-		    rd = req.getRequestDispatcher("/app.html"); //if login fails, don't forward, resend the index.html
-			rd.include(req, res);
+		 //   String n=req.getParameter("userName");  
+		    out.print("Welcome "); 
+		    //tc.getTypes(res);
+		    ec.getAllReimbursment(res);
+		    
+		  //  rd = req.getRequestDispatcher("/app.html"); //if login fails, don't forward, resend the index.html
+			//rd.include(req, res);
 		    }  
+	   
+	   public void doGet(HttpServletRequest req, HttpServletResponse res)  throws ServletException, IOException {  
+		    RequestDispatcher rd = null; 
+		    res.setContentType("application/json");  
+		    PrintWriter out = res.getWriter();  
+		    
+		    
+		    
+		          
+		 //   String n=req.getParameter("userName");  
+		  //  out.print("Welcome "); 
+		    //tc.getTypes(res);
+		    ec.getAllReimbursment(res);
+		  //  rd = req.getRequestDispatcher("/app.html"); //if login fails, don't forward, resend the index.html
+			//rd.include(req, res);
+		    }
 
 }

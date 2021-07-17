@@ -28,10 +28,11 @@ public class LoginServlet extends HttpServlet {
 		          
 		//Check form data
 		
-		if(username.equals("username") && password.equals("password")) { 
+		if(username.equals("user@mail.com") && password.equals("password")) { 
 			
 			//Uri Endpoint
-			rd = req.getRequestDispatcher("app");
+			
+			rd = req.getRequestDispatcher("app.html");
 			//Forward a request to another resourse on the server
 			rd.forward(req, res); 
 		} else {

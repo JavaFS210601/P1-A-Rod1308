@@ -19,4 +19,6 @@ public interface Ers_Reimbursment_Interface {
 		//for employee
 		
 		public ArrayList<Ers_Reimbursment> getReimbursmentByUser(int userId);
+		
+		public ArrayList<Ers_Reimbursment> getAllReimbursments();
 }

@@ -174,4 +174,48 @@ public class ErsReimbursmentDao implements Ers_Reimbursment_Interface {
 		return null;
 	}
 
+	@Override
+	public ArrayList<Ers_Reimbursment> getAllReimbursments() {
+		try(Connection conn = ConnectionUtil.getConnection()){
+			
+			String sql = "SELECT * FROM public.ers_reimbursement ;";
+			
+			PreparedStatement ps = conn.prepareStatement(sql);
+			
+			//maybe change to string
+			//ps.setInt(1,userId); //set our wildcard to the parameter given in the method
+			
+			ResultSet rs = ps.executeQuery();
+
+
+			ArrayList<Ers_Reimbursment> ReimbursmentList = new ArrayList<Ers_Reimbursment>();
+			
+			while(rs.next()) { //while there are results left in the ResultSet (rs)
+				
+				//Create a new Employee Object from each returned record
+				//This is the Employee Class's all args constructor
+				//And we're filling it with each column of the Employee record
+				Ers_Reimbursment er =  new Ers_Reimbursment(
+								rs.getInt("REIMB_ID"),
+								rs.getInt("REIMB_AMOUNT"),
+								rs.getString("REIMB_SUBMITED"),
+								rs.getString("REIMB_RESOLVED"),
+								rs.getString("REIMB_DESCRIPTION"),
+								rs.getString("REIMB_RECEIPT"),
+								rs.getInt("REIMB_AUTHOR"),
+								rs.getInt("REIMB_RESOLVER"),
+								rs.getInt("REIMB_STATUS_ID"),
+								rs.getInt("REIMB_TYPE_ID")
+								);
+				
+				ReimbursmentList.add(er);
+			}
+			return ReimbursmentList;
+			}catch (SQLException e) {
+				System.out.println("Couldn't all reimbursments");
+				e.printStackTrace();
+			}
+		return null;
+	}
+
 }
