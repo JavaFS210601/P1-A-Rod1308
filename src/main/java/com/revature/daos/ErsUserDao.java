@@ -15,7 +15,7 @@ public class ErsUserDao implements Ers_User_Interface{
 	public ArrayList<Ers_User> getUsers() {
 		try(Connection conn = ConnectionUtil.getConnection()){
 			
-			String sql = "SELECT * FROM ERS_USERS;";
+			String sql = "SELECT * FROM public.ERS_USERS;";
 			
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
@@ -41,11 +41,12 @@ public class ErsUserDao implements Ers_User_Interface{
 						);
 				
 				UserList.add(eu);
+				System.out.println(eu.toString());
 					
 			}
 			return UserList;
 		}catch (SQLException e) {
-			System.out.println("Couldn't get home by name");
+			System.out.println("Couldn't users");
 			e.printStackTrace();
 		}
 		return null;

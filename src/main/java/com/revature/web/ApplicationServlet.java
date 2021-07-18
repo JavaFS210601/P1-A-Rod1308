@@ -15,38 +15,40 @@ import com.revature.controllers.ErsReimbursmentTypeController;
 public class ApplicationServlet extends HttpServlet {
 	 
 	   private ErsReimbursmentController ec = new ErsReimbursmentController();
-	   private ErsReimbursmentTypeController tc = new ErsReimbursmentTypeController();
+//	   private ErsReimbursmentTypeController tc = new ErsReimbursmentTypeController();
+	   
+	   RequestDispatcher rd = null; 
 	   
 	   public void doPost(HttpServletRequest req, HttpServletResponse res)  throws ServletException, IOException {  
-		    RequestDispatcher rd = null; 
-		    res.setContentType("application/json");  
-		    PrintWriter out = res.getWriter();  
-		    
-		    
-		          
-		 //   String n=req.getParameter("userName");  
-		    out.print("Welcome "); 
-		    //tc.getTypes(res);
+		   
+		    res.setContentType("application/json");
 		    ec.getAllReimbursment(res);
 		    
-		  //  rd = req.getRequestDispatcher("/app.html"); //if login fails, don't forward, resend the index.html
-			//rd.include(req, res);
+		    res.setContentType("text/html");
+		    rd = req.getRequestDispatcher("/app.html");
+		    System.out.println("in do post");
+		    rd.forward(req, res);
+//		    
+		    //res.setContentType("application/json");  
+		   // doGet(req,res);
+		    
+		    System.out.println("IN DO POST");
 		    }  
 	   
 	   public void doGet(HttpServletRequest req, HttpServletResponse res)  throws ServletException, IOException {  
-		    RequestDispatcher rd = null; 
-		    res.setContentType("application/json");  
-		    PrintWriter out = res.getWriter();  
-		    
-		    
-		    
-		          
-		 //   String n=req.getParameter("userName");  
-		  //  out.print("Welcome "); 
-		    //tc.getTypes(res);
+//		    res.setContentType("application/json");  
+//		    PrintWriter out = res.getWriter();  
+//		   ec.getAllReimbursment(res);
+		    //res.setContentType("application/json");  
+		   // PrintWriter out = res.getWriter();  
+		    //out.print("Welcome "); 
+		   res.setContentType("application/json");
 		    ec.getAllReimbursment(res);
-		  //  rd = req.getRequestDispatcher("/app.html"); //if login fails, don't forward, resend the index.html
-			//rd.include(req, res);
-		    }
-
+//	   res.setContentType("application/json");
+//	    ec.getAllReimbursment(res);
+//	    res.setContentType("text/html");
+//	    rd = req.getRequestDispatcher("/app.html");
+//	    System.out.println("in do get");
+//	    rd.forward(req, res);
+	   }
 }

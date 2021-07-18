@@ -2,18 +2,21 @@ package com.revature.controllers;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.models.Ers_User;
 import com.revature.models.LoginDTO;
 import com.revature.services.LoginService;
 
 public class LoginController {
 	ObjectMapper om = new ObjectMapper(); //so we can work with JSON
 	private LoginService ls = new LoginService();
+	private ArrayList<Ers_User> users = new ArrayList<Ers_User>();
 	
 	public void login(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		
@@ -85,5 +88,35 @@ public class LoginController {
 			
 		}
 		
+	}
+
+	
+	
+	public void getAllUsers(HttpServletResponse res) throws IOException{
+		
+		System.out.println("Callig the service");
+		ArrayList<Ers_User> typeList = ls.getAllReimbursment();
+		users = typeList;
+		
+		String json = om.writeValueAsString(typeList);
+		res.getWriter().print(json);
+		res.setStatus(200);
+	}
+
+	public String checkUser(String username, String password, String isManager) {
+		
+		System.out.println("IM CHEKING THE USER");
+		//System.out.println(users.size());
+		
+		for(int i = 0; i < users.size(); i++) {
+			System.out.println(users.get(i).toString());
+			if(username.equals(users.get(i).user_email) && password.equals(users.get(i).ers_password)) {
+				if(users.get(i).user_rolde_id == 1 && isManager.equals("manager")) {return "M";}
+				if(users.get(i).user_rolde_id == 0 && isManager == null) {return "E";}
+			}
+			
+		}
+		
+		return null;
 	}
 }
