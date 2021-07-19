@@ -33,10 +33,10 @@
 	</servlet>
  	
  	<servlet>
-  	<display-name>ApplicationServlet</display-name> 
-  	<servlet-name>ApplicationServlet</servlet-name>
-  	<servlet-class>com.revature.web.ApplicationServlet</servlet-class>
-  </servlet>  
+  		<display-name>ApplicationServlet</display-name> 
+  		<servlet-name>ApplicationServlet</servlet-name>
+  		<servlet-class>com.revature.web.ApplicationServlet</servlet-class>
+   </servlet>  
   
   <!-- 
 	<servlet>

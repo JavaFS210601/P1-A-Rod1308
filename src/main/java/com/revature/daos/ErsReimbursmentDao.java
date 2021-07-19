@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.revature.models.Ers_Reimbursment;
-import com.revature.models.Ers_User;
 import com.revature.utils.ConnectionUtil;
 
 public class ErsReimbursmentDao implements Ers_Reimbursment_Interface {
@@ -220,6 +219,36 @@ public class ErsReimbursmentDao implements Ers_Reimbursment_Interface {
 				e.printStackTrace();
 			}
 		return null;
+	}
+
+	@Override
+	public void resolve(String date, String reimbId, int resolverId, boolean aproved) {
+		try(Connection conn = ConnectionUtil.getConnection()){
+			
+			String sql = "UPDATE public.ers_reimbursement SET REIMB_RESOLVED = ?, REIMB_RESOLVER = ?, REIMB_STATUS_ID = ?"
+					+ "WHERE REIMB_ID = ?";
+			
+			PreparedStatement ps = conn.prepareStatement(sql);
+			
+			ps.setDate(1, java.sql.Date.valueOf(date));
+			ps.setInt(2, resolverId);
+			
+			if (aproved) {
+				ps.setInt(3, 0);
+			}else {
+				ps.setInt(3, 1);
+			}
+			
+			ps.setInt(4, Integer.parseInt(reimbId));
+			
+			ps.executeUpdate();
+			System.out.println("Update Executed");
+			
+		} catch (SQLException e ) {
+			e.printStackTrace();
+			System.out.println("CouldentResolve =(");
+		}
+		
 	}
 
 }

@@ -27,13 +27,13 @@ public class ApplicationServlet extends HttpServlet {
 		    
 		    res.setContentType("text/html");
 		    rd = req.getRequestDispatcher("/app.html");
-		    System.out.println("in do post");
+		   // System.out.println("in do post");
 		    rd.forward(req, res);
 //		    
 		    //res.setContentType("application/json");  
 		   // doGet(req,res);
 		    
-		    System.out.println("IN DO POST");
+		    System.out.println("-=-=-=-=-=-=-=IN DO POST");
 		    }  
 	   
 	   public void doGet(HttpServletRequest req, HttpServletResponse res)  throws ServletException, IOException {  
@@ -46,6 +46,7 @@ public class ApplicationServlet extends HttpServlet {
 		   res.setContentType("application/json");
 		    //ec.getAllReimbursment(res);
 		    ec.getPendingReimbursment(res);
+		    System.out.println("-=-=-=-=-=-=-=IN DO Get");
 //	   res.setContentType("application/json");
 //	    ec.getAllReimbursment(res);
 //	    res.setContentType("text/html");

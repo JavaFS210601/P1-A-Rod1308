@@ -16,14 +16,14 @@ public class LoginServlet extends HttpServlet {
 	
 	
 	private LoginController lc = new LoginController();
-	private ErsReimbursmentController ec = new ErsReimbursmentController();
+	//private ErsReimbursmentController ec = new ErsReimbursmentController();
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		RequestDispatcher rd = null;  
 		PrintWriter out = res.getWriter(); 
-		out.print("inPost");
-		System.out.println("inPost");
+//		out.print("inPost");
+//		System.out.println("inPost");
 		
 		//Set the content type to html to display website
 		res.setContentType("text/html");
@@ -39,14 +39,14 @@ public class LoginServlet extends HttpServlet {
 		System.out.println(manager);
 		
 		lc.getAllUsers(res);
-		String userType = lc.checkUser(username,password,manager);
+		String userType = lc.checkUser(username,password,manager, req);
 		System.out.println("User Type " + userType);
 		//Check form data
 		
 		//if(username.equals("user@mail.com") && password.equals("password")) { 
 		if(userType == null) { 
 			System.out.println(1);
-			out.print("Sorry UserName or Password Error!");  
+		//	out.print("Sorry UserName or Password Error!");  
 			res.setContentType("text/html");
 			rd = req.getRequestDispatcher("/index.html"); //if login fails, don't forward, resend the index.html
 			rd.include(req, res); //"this is the request you sent me, this is the page I want to display as a result"
@@ -84,8 +84,8 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		RequestDispatcher rd = null;  
 		PrintWriter out = res.getWriter(); 
-		out.print("inPost");
-		System.out.println("inPost");
+//		out.print("inPost");
+//		System.out.println("inPost");
 		
 		//Set the content type to html to display website
 		res.setContentType("text/html");
@@ -101,14 +101,14 @@ public class LoginServlet extends HttpServlet {
 		System.out.println(manager);
 		
 		lc.getAllUsers(res);
-		String userType = lc.checkUser(username,password,manager);
+		String userType = lc.checkUser(username,password,manager,req);
 		System.out.println("User Type " + userType);
 		//Check form data
 		
 		//if(username.equals("user@mail.com") && password.equals("password")) { 
 		if(userType == null) { 
 			System.out.println(1);
-			out.print("Sorry UserName or Password Error!");  
+		//	out.print("Sorry UserName or Password Error!");  
 			res.setContentType("text/html");
 			rd = req.getRequestDispatcher("/index.html"); //if login fails, don't forward, resend the index.html
 			rd.include(req, res); //"this is the request you sent me, this is the page I want to display as a result"

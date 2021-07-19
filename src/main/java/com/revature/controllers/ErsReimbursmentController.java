@@ -24,7 +24,7 @@ public class ErsReimbursmentController {
 		res.getWriter().print(json);
 		res.setStatus(200);
 	}
-public void getPendingReimbursment(HttpServletResponse res) throws IOException{
+	public void getPendingReimbursment(HttpServletResponse res) throws IOException{
 		
 	///fix this later
 	int pending  = 2;
@@ -34,5 +34,11 @@ public void getPendingReimbursment(HttpServletResponse res) throws IOException{
 		res.getWriter().print(json);
 		res.setStatus(200);
 	}
+public void resolveReimbursment(String date, String id, int resolver,boolean aproved) {
+	
+	rServ.resolve(date, id, resolver,aproved);
+	
+	
+}
 	
 }

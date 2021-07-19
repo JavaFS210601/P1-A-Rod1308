@@ -103,7 +103,7 @@ public class LoginController {
 		res.setStatus(200);
 	}
 
-	public String checkUser(String username, String password, String isManager) {
+	public String checkUser(String username, String password, String isManager,HttpServletRequest req) {
 		
 		System.out.println("IM CHEKING THE USER");
 		//System.out.println(users.size());
@@ -111,6 +111,8 @@ public class LoginController {
 		for(int i = 0; i < users.size(); i++) {
 			System.out.println(users.get(i).toString());
 			if(username.equals(users.get(i).user_email) && password.equals(users.get(i).ers_password)) {
+				HttpSession session =req.getSession();
+				session.setAttribute("userId", users.get(i).ers_user_id);
 				if(users.get(i).user_rolde_id == 1 && isManager.equals("manager")) {return "M";}
 				if(users.get(i).user_rolde_id == 0 && isManager == null) {return "E";}
 			}

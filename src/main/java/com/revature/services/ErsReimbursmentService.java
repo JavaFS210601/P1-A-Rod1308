@@ -24,4 +24,10 @@ public class ErsReimbursmentService {
 		return rDao.getReimbursmentByStatus(pending);
 	}
 
+	public void resolve(String date, String id, int resolver, boolean aproved) {
+		
+		rDao.resolve(date,id, resolver, aproved);
+		
+	}
+
 }

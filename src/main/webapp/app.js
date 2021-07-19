@@ -22,7 +22,7 @@ async function displayFunc() {
         console.log(data);
        // console.log("4");
 
-        //document.getElementById("tableHeader").style.display = "inline";
+        document.getElementById("reimmbursmentTable").style.display = "block";
 
 
 
@@ -88,7 +88,7 @@ async function displayFunc() {
 
 
 
-             document.getElementById("avengerBody").appendChild(row);
+             document.getElementById("tableBody").appendChild(row);
             //so the variable "row" we created alllll the way at the top of the for loop 
             //will be appended to our empty table body in the HTML
 
@@ -108,6 +108,7 @@ async function displayFunc() {
             let option = document.createElement("option");
             option.value=x.innerHTML;
             option.innerHTML=x.innerHTML;
+            option.className = "resolveIdClass";
             select.appendChild(option);
         }
 
