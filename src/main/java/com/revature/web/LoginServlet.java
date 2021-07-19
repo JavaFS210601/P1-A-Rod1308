@@ -41,9 +41,6 @@ public class LoginServlet extends HttpServlet {
 		lc.getAllUsers(res);
 		String userType = lc.checkUser(username,password,manager, req);
 		System.out.println("User Type " + userType);
-		//Check form data
-		
-		//if(username.equals("user@mail.com") && password.equals("password")) { 
 		if(userType == null) { 
 			System.out.println(1);
 		//	out.print("Sorry UserName or Password Error!");  
@@ -55,8 +52,6 @@ public class LoginServlet extends HttpServlet {
 			if(userType.equals("M")) {
 				
 				System.out.println(" loging as a manager");
-//				res.setContentType("application/json");
-//				ec.getAllReimbursment(res);
 				res.setContentType("text/html");
 				rd = req.getRequestDispatcher("/app");
 				rd.forward(req, res); 
