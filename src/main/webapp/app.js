@@ -1,6 +1,6 @@
 const url = 'http://localhost:8080/P1-A-Rod1308/'
 
-document.getElementById('getAvengerButton').addEventListener('click', displayFunc);
+document.getElementById('getDisplayButton').addEventListener('click', displayFunc);
 
 async function displayFunc() {
 
@@ -17,9 +17,14 @@ async function displayFunc() {
         console.log("2");
 
         let data = await response.json(); //get the JSON data from the response, turn it into JS object
+       // console.log(data.json());
         console.log("3");
         console.log(data);
-        console.log("4");
+       // console.log("4");
+
+        //document.getElementById("tableHeader").style.display = "inline";
+
+
 
 
         //now, I want to put each avenger into my table
@@ -29,14 +34,14 @@ async function displayFunc() {
 
              let row = document.createElement("tr"); //create a table row
 
-             let cell = document.createElement("td"); //create a cell for the field
+            let cell = document.createElement("td"); //create a cell for the field
             cell.innerHTML = reimbursment.reimb_id; //fill the cell with avenger data
-            row.appendChild(cell) //this row now has the first cell (av_id)
+            cell.className = "idColumn";
+            row.appendChild(cell); //this row now has the first cell (av_id)
 
-            //the we'll do this^ for each field in the avenger model
-             let cell2 = document.createElement("td");
-             cell2.innerHTML = reimbursment.reimb_amount;
-             row.appendChild(cell2);
+            let cell2 = document.createElement("td");
+            cell2.innerHTML = reimbursment.reimb_amount;
+            row.appendChild(cell2);
 
             let cell3 = document.createElement("td");
             cell3.innerHTML = reimbursment.reimb_submited;
@@ -88,8 +93,29 @@ async function displayFunc() {
             //will be appended to our empty table body in the HTML
 
         }
+///////////////////////
+//////////////
+///////////////////////////////
+////make js list maybe a loop to get all elements and their info 
+
+
+//////////////////////////
+        let idColumnList = document.getElementsByClassName("idColumn");
+        let select = document.getElementById("idSelect");
+        for(let x of idColumnList){
+            console.log(x.innerHTML);
+
+            let option = document.createElement("option");
+            option.value=x.innerHTML;
+            option.innerHTML=x.innerHTML;
+            select.appendChild(option);
+        }
+
+        
+       
 
     }
+    
 
 
 

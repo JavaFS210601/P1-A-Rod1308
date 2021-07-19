@@ -22,7 +22,8 @@ public class ApplicationServlet extends HttpServlet {
 	   public void doPost(HttpServletRequest req, HttpServletResponse res)  throws ServletException, IOException {  
 		   
 		    res.setContentType("application/json");
-		    ec.getAllReimbursment(res);
+		//    ec.getAllReimbursment(res);
+		    ec.getPendingReimbursment(res);
 		    
 		    res.setContentType("text/html");
 		    rd = req.getRequestDispatcher("/app.html");
@@ -43,7 +44,8 @@ public class ApplicationServlet extends HttpServlet {
 		   // PrintWriter out = res.getWriter();  
 		    //out.print("Welcome "); 
 		   res.setContentType("application/json");
-		    ec.getAllReimbursment(res);
+		    //ec.getAllReimbursment(res);
+		    ec.getPendingReimbursment(res);
 //	   res.setContentType("application/json");
 //	    ec.getAllReimbursment(res);
 //	    res.setContentType("text/html");

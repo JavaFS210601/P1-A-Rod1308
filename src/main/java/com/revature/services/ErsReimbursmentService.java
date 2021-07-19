@@ -19,4 +19,9 @@ public class ErsReimbursmentService {
 		
 	}
 
+	public List<Ers_Reimbursment> Reimbursment(int pending) {
+		
+		return rDao.getReimbursmentByStatus(pending);
+	}
+
 }

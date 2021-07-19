@@ -38,6 +38,17 @@
   	<servlet-class>com.revature.web.ApplicationServlet</servlet-class>
   </servlet>  
   
+  <!-- 
+	<servlet>
+  	<display-name>ResolveServlet</display-name> 
+  	<servlet-name>ResolveServlet</servlet-name>
+  	<servlet-class>com.revature.web.ResolveServlet</servlet-class>
+  </servlet>  
+	
+	 -->
+  
+  
+  
 
   <servlet-mapping>
   	<servlet-name>LogoutServlet</servlet-name>
@@ -53,6 +64,16 @@
 	  	<servlet-name>ApplicationServlet</servlet-name>
 	  	<url-pattern>/app</url-pattern>
 	</servlet-mapping>  
+	
+	<!-- 
+	<servlet-mapping>
+  	<servlet-name>ResolveServlet</servlet-name>
+  	<url-pattern>/resolve</url-pattern> 
+  </servlet-mapping> 
+	
+	 -->
+	
+ 
  
  
  

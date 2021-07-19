@@ -24,5 +24,15 @@ public class ErsReimbursmentController {
 		res.getWriter().print(json);
 		res.setStatus(200);
 	}
+public void getPendingReimbursment(HttpServletResponse res) throws IOException{
+		
+	///fix this later
+	int pending  = 2;
+		List<Ers_Reimbursment> list = rServ.Reimbursment(pending);
+		
+		String json = om.writeValueAsString(list);
+		res.getWriter().print(json);
+		res.setStatus(200);
+	}
 	
 }
