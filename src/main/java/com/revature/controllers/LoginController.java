@@ -147,11 +147,20 @@ public class LoginController {
 		
 		
 		System.out.println("===============\nChecking User List\n===========");
+		
+		//to respond with html file
+		res.setContentType("text/html");
+		
+		//get singular session
+		HttpSession session =req.getSession(false);
 		for(int i = 0; i < users.size(); i++) {
 			System.out.println(users.get(i).toString());
+			
+			//Remember to set RequestDispatch
 			if(username.equals(users.get(i).user_email) && password.equals(users.get(i).ers_password)) {
 				
-				HttpSession session =req.getSession();
+				//setting session attributes
+				System.out.println((String)session.getId());
 				session.setAttribute("userId", users.get(i).ers_user_id);
 				session.setAttribute("fName", users.get(i).user_first_name);
 				session.setAttribute("lName", users.get(i).user_last_name);
@@ -160,29 +169,30 @@ public class LoginController {
 				System.out.println(users.get(i).ers_user_id );
 				System.out.println("/*/*/*/*/*/*/*/*/*");
 				if(users.get(i).user_rolde_id == 1 && isManager) {
-					res.setContentType("text/html");
 					rd = req.getRequestDispatcher("/appManager.html"); //rederect
-					rd.forward(req, res);
+					break;
 					}
 				if(users.get(i).user_rolde_id == 0 && !isManager) {
-					res.setContentType("text/html");
 					rd = req.getRequestDispatcher("/app.html"); //rederect
-					rd.forward(req, res);
+					break;
 					}
-				
+
+				//rd.forward(req, res);
 				///next up rederect end test
 			}
 			else {
 				PrintWriter out = res.getWriter();
-				res.setContentType("text/html");
 				out.print("Incorect credentials, Please try again");
 				rd = req.getRequestDispatcher("index.html");
-				rd.forward(req, res);
+				break;
+				//rd.forward(req, res);
+				
 			}
 			
 		}
-		
-		
+		System.out.println("Ended the loop");
+		//only one forward to not break the program
+		rd.forward(req, res);
 	}
 
 
