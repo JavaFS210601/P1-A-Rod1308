@@ -2,8 +2,11 @@ package com.revature.controllers;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,9 +19,11 @@ import com.revature.services.LoginService;
 public class LoginController {
 	ObjectMapper om = new ObjectMapper(); //so we can work with JSON
 	private LoginService ls = new LoginService();
-	private ArrayList<Ers_User> users = new ArrayList<Ers_User>();
+	private RequestDispatcher rd = null;
+	//private ArrayList<Ers_User> users = new ArrayList<Ers_User>();
 	
-	public void login(HttpServletRequest req, HttpServletResponse res) throws IOException {
+	
+	public void login2(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		
 		if(req.getMethod().equals("POST")) { //making sure we actually got a POST request before executing. 
 			
@@ -95,30 +100,83 @@ public class LoginController {
 	public void getAllUsers(HttpServletResponse res) throws IOException{
 		
 		System.out.println("Callig the service");
-		ArrayList<Ers_User> typeList = ls.getAllReimbursment();
-		users = typeList;
+		ArrayList<Ers_User> list = ls.getAllUser();
+		//users = list;
 		
-		String json = om.writeValueAsString(typeList);
+		String json = om.writeValueAsString(list);
 		res.getWriter().print(json);
 		res.setStatus(200);
 	}
 
-	public String checkUser(String username, String password, String isManager,HttpServletRequest req) {
+//	public String checkUser(String username, String password, String isManager,HttpServletRequest req) {
+//		
+//		System.out.println("IM CHEKING THE USER");
+//		//System.out.println(users.size());
+//		
+//		for(int i = 0; i < users.size(); i++) {
+//			System.out.println(users.get(i).toString());
+//			if(username.equals(users.get(i).user_email) && password.equals(users.get(i).ers_password)) {
+//				HttpSession session =req.getSession();
+//				session.setAttribute("userId", users.get(i).ers_user_id);
+//				if(users.get(i).user_rolde_id == 1 && isManager.equals("manager")) {return "M";}
+//				if(users.get(i).user_rolde_id == 0 && isManager == null) {return "E";}
+//			}
+//			
+//		}
+//		
+//		return null;
+//	}
+	
+	//-1 = no user, 0 = employee, 1= manager
+	//public void login(String username, String password, String isManager,HttpServletRequest req) {
+		public void login(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 		
-		System.out.println("IM CHEKING THE USER");
-		//System.out.println(users.size());
+		System.out.println("Controller Is Checking for User");
+		ArrayList<Ers_User> users = ls.getAllUser();
+		String json = om.writeValueAsString(users);
+		res.getWriter().print(json);
+		res.setStatus(200);
+		String username =req.getParameter("userName");
+		String password =req.getParameter("userPass");
+		String temp = req.getParameter("manager");
+		boolean isManager = temp == null ? false : true;
 		
+		System.out.println(username);
+		System.out.println(password);
+		System.out.println(isManager);
+		
+		
+		System.out.println("===============\nChecking User List\n===========");
 		for(int i = 0; i < users.size(); i++) {
 			System.out.println(users.get(i).toString());
 			if(username.equals(users.get(i).user_email) && password.equals(users.get(i).ers_password)) {
 				HttpSession session =req.getSession();
 				session.setAttribute("userId", users.get(i).ers_user_id);
-				if(users.get(i).user_rolde_id == 1 && isManager.equals("manager")) {return "M";}
-				if(users.get(i).user_rolde_id == 0 && isManager == null) {return "E";}
+				System.out.println(users.get(i).ers_user_id);
+				System.out.println("/*/*/*/*/*/*/*/*/*");
+				if(users.get(i).user_rolde_id == 1 && isManager) {
+					res.setContentType("text/html");
+					rd = req.getRequestDispatcher("/app.html"); //rederect
+					rd.forward(req, res);
+					}
+				if(users.get(i).user_rolde_id == 0 && !isManager) {
+					res.setContentType("text/html");
+					rd = req.getRequestDispatcher("/app.html"); //rederect
+					rd.forward(req, res);
+					}
+				
+				///next up rederect end test
+			}
+			else {
+				PrintWriter out = res.getWriter();
+				res.setContentType("text/html");
+				out.print("Incorect credentials, Please try again");
+				rd = req.getRequestDispatcher("index.html");
+				rd.include(req, res);
 			}
 			
 		}
 		
-		return null;
+		
 	}
 }

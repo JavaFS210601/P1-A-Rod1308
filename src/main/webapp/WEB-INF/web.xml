@@ -20,7 +20,7 @@
   <!-- Servlet Declaration -->
   
   
-  
+  <!--  -->
   <servlet>
   	<display-name>LogoutServlet</display-name>
   	<servlet-name>LogoutServlet</servlet-name>
@@ -40,16 +40,18 @@
    </servlet>  
   
   <!-- 
-	<servlet>
-  	<display-name>ResolveServlet</display-name> 
-  	<servlet-name>ResolveServlet</servlet-name>
-  	<servlet-class>com.revature.web.ResolveServlet</servlet-class>
-  </servlet>  
-	
-	 -->
+  <servlet>
+  		<display-name>MasterServlet</display-name>
+  		<servlet-name>MasterServlet</servlet-name>
+  		<servlet-class>com.revature.web.MasterServlet</servlet-class>
+  </servlet>
   
+  <servlet-mapping>
+		<servlet-name>MasterServlet</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
   
-  
+   -->
 
   <servlet-mapping>
   	<servlet-name>LogoutServlet</servlet-name>
@@ -66,13 +68,9 @@
 	  	<url-pattern>/app</url-pattern>
 	</servlet-mapping>  
 	
-	<!-- 
-	<servlet-mapping>
-  	<servlet-name>ResolveServlet</servlet-name>
-  	<url-pattern>/resolve</url-pattern> 
-  </servlet-mapping> 
 	
-	 -->
+	
+	
 	
  
  

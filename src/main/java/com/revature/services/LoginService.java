@@ -29,7 +29,7 @@ public class LoginService {
 		return false;
 	}
 
-	public ArrayList<Ers_User> getAllReimbursment() {
+	public ArrayList<Ers_User> getAllUser() {
 		
 		return userDao.getUsers();
 	}
