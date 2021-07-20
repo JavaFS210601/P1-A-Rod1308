@@ -52,4 +52,35 @@ public class ErsUserDao implements Ers_User_Interface{
 		return null;
 	
 	}
+
+	@Override
+	public void createUser(Ers_User x) {
+		try(Connection conn = ConnectionUtil.getConnection()){
+			
+			String sql = "INSERT INTO public.ERS_USERS (ERS_USERNAME,ERS_PASSWORD,USER_FIRST_NAME,USER_LAST_NAME,USER_EMAIL,USER_ROLE_ID)"
+					+ "VALUES (?,?,?,?,?,?);";
+			
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, x.ers_username);
+			ps.setString(2, x.ers_password);
+			ps.setString(3, x.user_first_name);
+			ps.setString(4, x.user_last_name);
+			ps.setString(5, x.user_email);
+			ps.setInt(6, x.user_rolde_id);
+			
+			
+			ps.executeUpdate();
+			
+			System.out.println("User: Created");
+			System.out.println(x.toString());
+			
+				
+				
+		}catch (SQLException e) {
+			System.out.println("Couldn't create user");
+			e.printStackTrace();
+		}
+		
+		
+	}
 }

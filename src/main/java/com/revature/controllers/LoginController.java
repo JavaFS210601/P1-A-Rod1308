@@ -150,13 +150,18 @@ public class LoginController {
 		for(int i = 0; i < users.size(); i++) {
 			System.out.println(users.get(i).toString());
 			if(username.equals(users.get(i).user_email) && password.equals(users.get(i).ers_password)) {
+				
 				HttpSession session =req.getSession();
 				session.setAttribute("userId", users.get(i).ers_user_id);
-				System.out.println(users.get(i).ers_user_id);
+				session.setAttribute("fName", users.get(i).user_first_name);
+				session.setAttribute("lName", users.get(i).user_last_name);
+				session.setAttribute("isManager", users.get(i).user_rolde_id == 0 ? false : true);
+				
+				System.out.println(users.get(i).ers_user_id );
 				System.out.println("/*/*/*/*/*/*/*/*/*");
 				if(users.get(i).user_rolde_id == 1 && isManager) {
 					res.setContentType("text/html");
-					rd = req.getRequestDispatcher("/app.html"); //rederect
+					rd = req.getRequestDispatcher("/appManager.html"); //rederect
 					rd.forward(req, res);
 					}
 				if(users.get(i).user_rolde_id == 0 && !isManager) {
@@ -172,11 +177,43 @@ public class LoginController {
 				res.setContentType("text/html");
 				out.print("Incorect credentials, Please try again");
 				rd = req.getRequestDispatcher("index.html");
-				rd.include(req, res);
+				rd.forward(req, res);
 			}
 			
 		}
 		
 		
 	}
+
+
+
+		public void createNewUser( HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+			System.out.println("Controller Is Creating new User");
+			
+			String fName =req.getParameter("fName");
+			String lName =req.getParameter("lName");
+			String uName =req.getParameter("uName");
+			String uMail =req.getParameter("uMail");
+			String uPass =req.getParameter("uPass");
+			String uPassConf =req.getParameter("uPassConf");
+			
+			//Role: EMployee = 0, Manager = 1
+			String temp = req.getParameter("manager");
+			int isManager = temp == null ? 0 : 1;
+			
+			System.out.println(fName + lName + uName + uPass + uPassConf + isManager );
+			
+			
+			
+			//create
+			int numOfUsers = ls.getAllUser().size();
+			Ers_User newUser = new Ers_User(numOfUsers+1 ,uName, uPass,fName, lName, uMail, isManager);
+			ls.createUser(newUser);
+			
+			res.setContentType("text/html");
+			rd = req.getRequestDispatcher("/app.html"); //rederect
+			rd.forward(req, res);
+			
+			
+		}
 }

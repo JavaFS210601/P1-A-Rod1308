@@ -34,4 +34,9 @@ public class LoginService {
 		return userDao.getUsers();
 	}
 
+	public void createUser(Ers_User x) {
+		// TODO Auto-generated method stub
+		userDao.createUser(x);
+	}
+
 }
