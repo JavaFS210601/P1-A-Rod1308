@@ -32,6 +32,7 @@ public class ErsReimbursmentController {
 		
 		String json = om.writeValueAsString(list);
 		res.getWriter().print(json);
+		//System.out.println(json);
 		res.setStatus(200);
 	}
 public void resolveReimbursment(String date, String id, int resolver,boolean aproved) {

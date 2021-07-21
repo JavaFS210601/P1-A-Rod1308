@@ -26,10 +26,8 @@ public class LoginServlet extends HttpServlet {
 		
 		System.out.println("POST");
 		HttpSession session =req.getSession();
-//		session.setAttribute("userId", 1);
-//		session.setAttribute("fName", 2);
-//		session.setAttribute("lName", 3);
-//		session.setAttribute("isManager", 4);
+
+	//	if (session != null)
 		System.out.println((String)session.getId());
 		lc.login(req, res);
 	
@@ -39,8 +37,9 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
-		System.out.println("GET");
-		lc.login(req, res);
+		doPost(req,res);
+//		System.out.println("GET");
+//		lc.login(req, res);
 			
 
 		}

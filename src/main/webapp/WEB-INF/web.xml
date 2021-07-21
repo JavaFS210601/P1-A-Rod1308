@@ -33,13 +33,15 @@
 		<servlet-class>com.revature.web.LoginServlet</servlet-class>
 	</servlet>
  	
- 	<servlet>
+ 	
+  <servlet>
   		<display-name>ApplicationServlet</display-name> 
   		<servlet-name>ApplicationServlet</servlet-name>
   		<servlet-class>com.revature.web.ApplicationServlet</servlet-class>
    </servlet>  
-  
   <!-- 
+  
+   
   <servlet>
   		<display-name>MasterServlet</display-name>
   		<servlet-name>MasterServlet</servlet-name>
@@ -51,6 +53,8 @@
 		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
   
+  
+	
    -->
 
   <servlet-mapping>
@@ -63,10 +67,10 @@
  		<url-pattern>/login</url-pattern>
  	</servlet-mapping>
   
-  <servlet-mapping>
+ <servlet-mapping>
 	  	<servlet-name>ApplicationServlet</servlet-name>
 	  	<url-pattern>/app</url-pattern>
-	</servlet-mapping>  
+	</servlet-mapping> 
 	
 	
 	

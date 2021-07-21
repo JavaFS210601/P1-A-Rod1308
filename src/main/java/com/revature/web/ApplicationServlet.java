@@ -22,36 +22,17 @@ public class ApplicationServlet extends HttpServlet {
 	   public void doPost(HttpServletRequest req, HttpServletResponse res)  throws ServletException, IOException {  
 		   
 		    res.setContentType("application/json");
-		//    ec.getAllReimbursment(res);
 		    ec.getPendingReimbursment(res);
-		    
 		    res.setContentType("text/html");
-		    rd = req.getRequestDispatcher("/app.html");
-		   // System.out.println("in do post");
+		    rd = req.getRequestDispatcher("/appManager.html");
 		    rd.forward(req, res);
-//		    
-		    //res.setContentType("application/json");  
-		   // doGet(req,res);
-		    
 		    System.out.println("-=-=-=-=-=-=-=IN DO POST");
 		    }  
 	   
 	   public void doGet(HttpServletRequest req, HttpServletResponse res)  throws ServletException, IOException {  
-//		    res.setContentType("application/json");  
-//		    PrintWriter out = res.getWriter();  
-//		   ec.getAllReimbursment(res);
-		    //res.setContentType("application/json");  
-		   // PrintWriter out = res.getWriter();  
-		    //out.print("Welcome "); 
-		   res.setContentType("application/json");
-		    //ec.getAllReimbursment(res);
+		    //doPost(req, res);
+		    res.setContentType("application/json");
 		    ec.getPendingReimbursment(res);
 		    System.out.println("-=-=-=-=-=-=-=IN DO Get");
-//	   res.setContentType("application/json");
-//	    ec.getAllReimbursment(res);
-//	    res.setContentType("text/html");
-//	    rd = req.getRequestDispatcher("/app.html");
-//	    System.out.println("in do get");
-//	    rd.forward(req, res);
 	   }
 }

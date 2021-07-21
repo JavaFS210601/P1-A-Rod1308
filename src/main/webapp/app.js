@@ -3,17 +3,18 @@ const url = 'http://localhost:8080/P1-A-Rod1308/'
 document.getElementById('getDisplayButton').addEventListener('click', displayFunc);
 
 async function displayFunc() {
+	
+	console.log(window.location.href);
 
-    let response = await fetch(url + 'app', {credentials: "include"});
+    let response = await fetch(url + "app", {credentials: "include"});
     //, {credentials: "include"}
 
     console.log(response);
-    console.log("1");
-
-
-
+   // console.log(await response.json());
+  
     if(response.status === 200) { //if the request is successful...
         console.log(response); //just to see what comes back for debug
+        //console.log(response.json());
         console.log("2");
 
         let data = await response.json(); //get the JSON data from the response, turn it into JS object
@@ -120,4 +121,13 @@ async function displayFunc() {
 
 
 
+}
+
+document.getElementById("pending").addEventListener('click', pendingFunc);
+  function pendingFunc() {
+      console.log("Button Clicked");
+    window.location.href = url + "pending";
+    
+    
+    
 }

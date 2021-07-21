@@ -51,7 +51,7 @@ function getDateFunc() {
         let date = new Date();
         let todayFormated = (date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate());
         console.log(todayFormated);
-        console.log("++++++++++");
+        console.log("++++++++++ Employee");
         
 	let dateHeader = document.getElementById("dateHeader");
 	dateHeader.value = todayFormated;
@@ -73,14 +73,20 @@ function getDateFunc() {
 			  <a class="nav-link" href="#"><b>ERS</b></a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="app">Pending <span class="sr-only">(current)</span></a>
+				<a class="nav-link" href="app-pending-E" id="pending">Pending <span class="sr-only">(current)</span></a>
 			  </li>
-			<li class="nav-item">
-			  <a class="nav-link" href="#">#</a>
-			</li>
+			  <li class="nav-item">
+				<a class="nav-link" href="app-resolved-E" id="resolved">Resolved <span class="sr-only">(current)</span></a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="app-create" id="new">Create New <span class="sr-only">(current)</span></a>
+			  </li>
 			<li class="nav-item">
 				<a class="nav-link" href='logout'><span>Logout</span></a>
-			  </li>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href='user-settings'><span><b>Settings</b></span></a>
+			</li>
 			  
 			  
 		  </ul>

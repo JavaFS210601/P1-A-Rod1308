@@ -108,28 +108,10 @@ public class LoginController {
 		res.setStatus(200);
 	}
 
-//	public String checkUser(String username, String password, String isManager,HttpServletRequest req) {
-//		
-//		System.out.println("IM CHEKING THE USER");
-//		//System.out.println(users.size());
-//		
-//		for(int i = 0; i < users.size(); i++) {
-//			System.out.println(users.get(i).toString());
-//			if(username.equals(users.get(i).user_email) && password.equals(users.get(i).ers_password)) {
-//				HttpSession session =req.getSession();
-//				session.setAttribute("userId", users.get(i).ers_user_id);
-//				if(users.get(i).user_rolde_id == 1 && isManager.equals("manager")) {return "M";}
-//				if(users.get(i).user_rolde_id == 0 && isManager == null) {return "E";}
-//			}
-//			
-//		}
-//		
-//		return null;
-//	}
 	
 	//-1 = no user, 0 = employee, 1= manager
 	//public void login(String username, String password, String isManager,HttpServletRequest req) {
-		public void login(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+	public void login(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 		
 		System.out.println("Controller Is Checking for User");
 		ArrayList<Ers_User> users = ls.getAllUser();
@@ -169,11 +151,11 @@ public class LoginController {
 				System.out.println(users.get(i).ers_user_id );
 				System.out.println("/*/*/*/*/*/*/*/*/*");
 				if(users.get(i).user_rolde_id == 1 && isManager) {
-					rd = req.getRequestDispatcher("/appManager.html"); //rederect
+					rd = req.getRequestDispatcher("app"); //rederect
 					break;
 					}
 				if(users.get(i).user_rolde_id == 0 && !isManager) {
-					rd = req.getRequestDispatcher("/app.html"); //rederect
+					rd = req.getRequestDispatcher("/app-pending-E"); //rederect
 					break;
 					}
 
@@ -184,7 +166,8 @@ public class LoginController {
 				PrintWriter out = res.getWriter();
 				out.print("Incorect credentials, Please try again");
 				rd = req.getRequestDispatcher("index.html");
-				break;
+				//session.invalidate();
+				//break;
 				//rd.forward(req, res);
 				
 			}
@@ -194,6 +177,7 @@ public class LoginController {
 		//only one forward to not break the program
 		rd.forward(req, res);
 	}
+
 
 
 

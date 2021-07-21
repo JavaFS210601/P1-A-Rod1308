@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.revature.controllers.ErsReimbursmentTypeController;
 //import com.revature.controllers.Controller;
@@ -25,8 +26,8 @@ public class LogoutServlet extends HttpServlet {
 		
 		RequestDispatcher rd = null;
 		PrintWriter pw = res.getWriter(); //this is how we write to our Response Object
-	
-	
+		HttpSession session =req.getSession(false);
+		session.invalidate();
 		//String URI = req.getRequestURI().replace("/P1-A-Rod1308/", "");
 		
 		rd = req.getRequestDispatcher("index.html");
