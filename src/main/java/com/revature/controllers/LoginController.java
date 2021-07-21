@@ -151,11 +151,11 @@ public class LoginController {
 				System.out.println(users.get(i).ers_user_id );
 				System.out.println("/*/*/*/*/*/*/*/*/*");
 				if(users.get(i).user_rolde_id == 1 && isManager) {
-					rd = req.getRequestDispatcher("app"); //rederect
+					rd = req.getRequestDispatcher("appmanager"); //rederect
 					break;
 					}
 				if(users.get(i).user_rolde_id == 0 && !isManager) {
-					rd = req.getRequestDispatcher("/app-pending-E"); //rederect
+					rd = req.getRequestDispatcher("app"); //rederect
 					break;
 					}
 
@@ -164,7 +164,7 @@ public class LoginController {
 			}
 			else {
 				PrintWriter out = res.getWriter();
-				out.print("Incorect credentials, Please try again");
+				//out.print("Incorect credentials, Please try again");
 				rd = req.getRequestDispatcher("index.html");
 				//session.invalidate();
 				//break;

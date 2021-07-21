@@ -1,7 +1,8 @@
 package com.revature.web;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,14 +11,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.plaf.synth.SynthOptionPaneUI;
 
 import com.revature.controllers.ErsReimbursmentController;
 
 /**
  * Servlet implementation class ResolveServlet
  */
-@WebServlet({ "/ResolveServlet", "/resolve" })
+@WebServlet({ "/ResolveServlet", "/resolve","/create" })
 public class ResolveServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -39,11 +39,27 @@ public class ResolveServlet extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-		//res.setContentType("text/html");
 		RequestDispatcher rd = null;
-		PrintWriter out = res.getWriter();
+		
+		String URI = req.getRequestURI().replace("/P1-A-Rod1308/", "");
+		
+		switch(URI) {
+		case"resolve":
+				resolve(req);
+			break;
+		case"create":
+				create(req);
+			break;
+		
+		}
+		
+		
+		
+		rd = req.getRequestDispatcher("/app");
+		rd.include(req, res);
+	}
+	
+	private void resolve(HttpServletRequest req) {
 		
 		String date = req.getParameter("date");
 		String id = req.getParameter("idSelect");
@@ -57,24 +73,36 @@ public class ResolveServlet extends HttpServlet {
 		boolean aproved ;
 		aproved = temp == null ? false : true;
 		
-		System.out.println(temp);
-		System.out.println(aproved);
-		
-		//boolean aproved = false;
-		//System.out.println("()()()()()()()()"+resolverId);
+	
 		
 		System.out.println(date + " id: " + id +"Sesion"+ "R:" + resolverId) ;
 		System.out.println("()()()()()()()\n\n");
 		
 		
-		System.out.println("=======================================(in doPost)");
-		//out.println("<p style='color:red;'>Yay!</p>");
-		
-		
 		rc.resolveReimbursment(date, id, resolverId,aproved);
 		
-		rd = req.getRequestDispatcher("/app");
-		rd.include(req, res);
+	}
+	
+	private void create(HttpServletRequest req) {
+		
+		int amount = Integer.valueOf(req.getParameter("amount")); 
+		int  rType = Integer.valueOf(req.getParameter("rType"));
+		String description = req.getParameter("description");
+		System.out.println(amount + " " + rType + " " + description);
+		
+		HttpSession session = req.getSession(false);
+		int authorId = (Integer)session.getAttribute("userId");
+		System.out.println("===========" + authorId + "==============");
+		
+		Date date = new Date();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		
+		
+		
+		rc.createReimbursment(authorId,amount, rType, description, formatter.format(date));
+		
+		
+		
 	}
 
 }

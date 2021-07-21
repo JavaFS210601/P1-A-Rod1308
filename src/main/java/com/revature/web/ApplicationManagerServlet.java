@@ -1,20 +1,32 @@
 package com.revature.web;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.revature.controllers.ErsReimbursmentController;
-import com.revature.controllers.ErsReimbursmentTypeController;
 
-public class ApplicationServlet extends HttpServlet {
-	 
-	   private ErsReimbursmentController ec = new ErsReimbursmentController();
+/**
+ * Servlet implementation class ApplicationManagerServlet
+ */
+@WebServlet({ "/ApplicationManagerServlet", "/appmanager" })
+public class ApplicationManagerServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public ApplicationManagerServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+    private ErsReimbursmentController ec = new ErsReimbursmentController();
 //	   private ErsReimbursmentTypeController tc = new ErsReimbursmentTypeController();
 	   
 	   RequestDispatcher rd = null; 
@@ -23,11 +35,10 @@ public class ApplicationServlet extends HttpServlet {
 		   
 		    res.setContentType("application/json");
 		//    ec.getAllReimbursment(res);
-		    //ec.getPendingReimbursment(res);
-		    ec.getPendingByAuthor(res, 1);
+		    ec.getPendingReimbursment(res);
 		    
 		    res.setContentType("text/html");
-		    rd = req.getRequestDispatcher("/app.html");
+		    rd = req.getRequestDispatcher("/appManager.html");
 		   // System.out.println("in do post");
 		    rd.forward(req, res);
 //		    
@@ -41,9 +52,9 @@ public class ApplicationServlet extends HttpServlet {
 //		    
 		   res.setContentType("application/json");
 		    //ec.getAllReimbursment(res);
-		   // ec.getPendingReimbursment(res);
-		   ec.getPendingByAuthor(res, 1);
+		    ec.getPendingReimbursment(res);
 		    System.out.println("-=-=-=-=-=-=-=IN DO Get");
 //	  
 	   }
+
 }

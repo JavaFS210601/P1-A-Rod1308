@@ -23,4 +23,5 @@ public interface Ers_Reimbursment_Interface {
 		public ArrayList<Ers_Reimbursment> getAllReimbursments();
 		
 		public void resolve(String date, String reimbId, int resolverId, boolean aproved);
+		public void create(Ers_Reimbursment x);
 }

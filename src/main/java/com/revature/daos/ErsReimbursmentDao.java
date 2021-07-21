@@ -137,11 +137,15 @@ public class ErsReimbursmentDao implements Ers_Reimbursment_Interface {
 	public ArrayList<Ers_Reimbursment> getReimbursmentByUser(int userId) {
 		try(Connection conn = ConnectionUtil.getConnection()){
 			
-			String sql = "SELECT * FROM ERS_REIMBURSMENT WHERE ERS_TYPE_ID = ?;";
+			String sql = "SELECT * FROM public.ers_reimbursement WHERE REIMB_AUTHOR = ? AND REIMB_STATUS_ID = 2;";
 			
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
 			//maybe change to string
+			System.out.println("Select * where userId :" + userId);
+			System.out.println("=======================");
+			System.out.println("=======================");
+			//System.out.println("Select * where userId :" + userId);
 			ps.setInt(1,userId); //set our wildcard to the parameter given in the method
 			
 			ResultSet rs = ps.executeQuery();
@@ -160,7 +164,7 @@ public class ErsReimbursmentDao implements Ers_Reimbursment_Interface {
 								rs.getString("REIMB_SUBMITED"),
 								rs.getString("REIMB_RESOLVED"),
 								rs.getString("REIMB_DESCRIPTION"),
-								rs.getString("REIMB_RECIEPT"),
+								"#1234567",
 								rs.getInt("REIMB_AUTHOR"),
 								rs.getInt("REIMB_RESOLVER"),
 								rs.getInt("REIMB_STATUS_ID"),
@@ -168,10 +172,11 @@ public class ErsReimbursmentDao implements Ers_Reimbursment_Interface {
 								);
 				
 				ReimbursmentList.add(er);
+				System.out.println(er.toString());
 			}
 			return ReimbursmentList;
 			}catch (SQLException e) {
-				System.out.println("Couldn't get home by name");
+				System.out.println("Couldn't get pending reimby by id ");
 				e.printStackTrace();
 			}
 		return null;
@@ -247,6 +252,31 @@ public class ErsReimbursmentDao implements Ers_Reimbursment_Interface {
 		} catch (SQLException e ) {
 			e.printStackTrace();
 			System.out.println("CouldentResolve =(");
+		}
+		
+	}
+
+	public void create(Ers_Reimbursment x) {
+		// TODO Auto-generated method stub
+		try(Connection conn = ConnectionUtil.getConnection()){
+			String sql = "INSERT INTO public.ERS_REIMBURSEMENT (REIMB_AMOUNT,REIMB_SUBMITED,REIMB_DESCRIPTION,REIMB_AUTHOR,REIMB_STATUS_ID,REIMB_TYPE_ID)"
+					+ "VALUES (?,?,?,?,?,?);";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, x.reimb_amount);
+			ps.setDate(2, java.sql.Date.valueOf(x.reimb_submited));
+			ps.setString(3, x.reimb_description);
+			ps.setInt(4, x.reimb_author);
+			ps.setInt(5, x.reimb_status_id);
+			ps.setInt(6, x.reimb_type_id);
+			
+			ps.executeUpdate();
+			
+			System.out.println("Reimbursment created");
+			System.out.println(x.toString());
+			
+		}catch (SQLException e) {
+			System.out.println("Couldn't create Reimbursment");
+			e.printStackTrace();
 		}
 		
 	}

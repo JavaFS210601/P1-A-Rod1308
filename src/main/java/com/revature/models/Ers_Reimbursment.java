@@ -40,6 +40,21 @@ public class Ers_Reimbursment {
 		this.reimb_status_id = reimb_status_id;
 		this.reimb_type_id = reimb_type_id;
 	}
+	
+	
+
+	public Ers_Reimbursment(int reimb_amount, String reimb_submited, String reimb_description, int reimb_author,
+			int reimb_status_id, int reimb_type_id) {
+		super();
+		this.reimb_amount = reimb_amount;
+		this.reimb_submited = reimb_submited;
+		this.reimb_description = reimb_description;
+		this.reimb_author = reimb_author;
+		this.reimb_status_id = reimb_status_id;
+		this.reimb_type_id = reimb_type_id;
+	}
+
+
 
 	public int getReimb_id() {
 		return reimb_id;

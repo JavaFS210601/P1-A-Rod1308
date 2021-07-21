@@ -41,5 +41,22 @@ public void resolveReimbursment(String date, String id, int resolver,boolean apr
 	
 	
 }
+public void createReimbursment(int authorId, int amount, int rType, String description, String date) {
+	
+	System.out.println(date);
+	Ers_Reimbursment temp = new Ers_Reimbursment(amount,date,description,authorId, 2, rType);
+	rServ.create(temp);
+}
+public void getPendingByAuthor(HttpServletResponse res, int author) throws IOException {
+	
+	System.out.println("checking for id " + author);
+	List<Ers_Reimbursment> list = rServ.getPendingByAuthor(author);
+	
+	String json = om.writeValueAsString(list);
+	res.getWriter().print(json);
+	res.setStatus(200);
+	
+	
+}
 	
 }
